@@ -1,0 +1,11 @@
+{
+  "files": ["src/components/charts/chartConfig.ts"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    }
+  ]
+}
