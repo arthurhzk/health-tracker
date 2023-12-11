@@ -65,15 +65,33 @@
 
         <div class="flex flex-col justify-between">
           <h4 class="text-h4 text-white my-4">Medidas corporais</h4>
-          <h7 class="text-h7 text-white">Checado há dois dias atrás</h7>
         </div>
+
         <div class="absolute bottom-2 right-10">
           <img src="@/assets/male.png" alt="" />
         </div>
-        <div class="space-y-5 mt-20">
-          <SmallestCard name="Peito (in)" :value="42" />
-          <SmallestCard name="Cintura (in)" :value="34" />
-          <SmallestCard name="Quadril (in)" :value="42.5" />
+
+        <div class="space-y-10">
+          <SizesModal class="mt-2" />
+          <SmallestCard
+            name="Peito (in)"
+            :value="getLastChest"
+            :icon="getTrendingIconChest"
+            :get-colored-icon="getTrendingIconChestColor"
+          />
+          <SmallestCard
+            name="Cintura (in)"
+            :value="getLastWaist"
+            :icon="getTrendingIconWaist"
+            :get-colored-icon="getTrendingIconWaistColor"
+          />
+
+          <SmallestCard
+            name="Quadril (in)"
+            :value="getLastHips"
+            :icon="getTrendingIconHips"
+            :get-colored-icon="getTrendingIconHipsColor"
+          />
         </div>
       </div>
     </div>
@@ -92,7 +110,8 @@ import CheckupForm from "@/components/CheckupForm.vue";
 import MassModal from "@/components/MassModal.vue";
 import { fetchData } from "@/composables/useFetchData";
 import { fetchMassData } from "@/composables/useCheckMass";
-
+import SizesModal from "@/components/SizesModal.vue";
+import { fetchSizeData } from "@/composables/useBodySize";
 const {
   getLastGlicemyValue,
   getLastHeartBeat,
@@ -102,6 +121,18 @@ const {
   lastHeartRateStatus,
   lastPressureStatus,
 } = fetchData();
+
+const {
+  getLastChest,
+  getLastHips,
+  getLastWaist,
+  getTrendingIconWaist,
+  getTrendingIconHips,
+  getTrendingIconChest,
+  getTrendingIconChestColor,
+  getTrendingIconHipsColor,
+  getTrendingIconWaistColor,
+} = fetchSizeData();
 
 const { getLastHeight, getLastWeight, calculateBMI } = fetchMassData();
 </script>
