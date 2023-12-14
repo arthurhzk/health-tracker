@@ -33,7 +33,7 @@ const resetPassword = async () => {
   const { data, error } = await supabase.auth.resetPasswordForEmail(
     state.email,
     {
-      redirectTo: "http://localhost:3000/password",
+      redirectTo: "http://localhost:5173/password",
     }
   );
   if (!error) {

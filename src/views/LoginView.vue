@@ -18,7 +18,7 @@
         >
 
         <v-btn
-          @click="signInWithEmail"
+          @click="signLogin"
           type="submit"
           color="primary"
           block
@@ -41,24 +41,13 @@
 </template>
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import { supabase } from "@/lib/supabase";
 import { useUserStore } from "@/stores/users";
 
-const { state, isLoggedIn } = useUserStore();
-
+const { state, signInWithEmail } = useUserStore();
 const router = useRouter();
-
-const signInWithEmail = async () => {
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: state.email,
-      password: state.password,
-    });
-    if (!error) {
-      router.push({ name: "Home" });
-    }
-  } catch (error) {
-    console.error("An error occurred during sign in:", error);
-  }
+const signLogin = () => {
+  signInWithEmail().then(() => {
+    router.push("/");
+  });
 };
 </script>

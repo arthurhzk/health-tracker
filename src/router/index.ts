@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { useUserStore } from "@/stores/users";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,10 +8,13 @@ const router = createRouter({
       path: "/",
       name: "Home",
       component: () => import("@/views/HomeView.vue"),
+      meta: {
+        requiresAuth: true,
+      },
     },
     {
       path: "/login",
-      name: "Login ",
+      name: "Login",
       component: () => import("@/views/LoginView.vue"),
     },
     {
@@ -29,6 +33,14 @@ const router = createRouter({
       component: () => import("@/views/UpdatePasswordView.vue"),
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const store = useUserStore();
+  if (to.meta.requiresAuth && !store.accessToken) {
+    next("/login");
+  }
+  next();
 });
 
 export default router;
