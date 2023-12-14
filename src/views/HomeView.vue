@@ -15,7 +15,12 @@
           :status="lastGlicemyStatus"
           meter="mg/dL"
         >
-          <BloodSugar />
+          <template #icon>
+            <BloodSugar />
+          </template>
+          <template #chart>
+            <MonitoringChart :last-month="averageGlicemy" />
+          </template>
         </TheCard>
         <TheCard
           name="Batimentos cardíacos"
@@ -23,7 +28,12 @@
           :status="lastHeartRateStatus"
           meter="bpm"
         >
-          <HeartCheck />
+          <template #icon>
+            <HeartCheck />
+          </template>
+          <template #chart>
+            <MonitoringChart :last-month="averageHeartBeat" />
+          </template>
         </TheCard>
         <TheCard
           name="Pressão arterial"
@@ -31,10 +41,16 @@
           :second-value="getLastDiastole"
           :status="lastPressureStatus ?? undefined"
           meter="mmhg"
-        >
-          <BloodPressure />
+          ><template #icon>
+            <BloodPressure />
+          </template>
+          <template #chart>
+            <MonitoringChart :last-month="averagePressure" />
+          </template>
         </TheCard>
-        <div class="flex items-center justify-center"></div>
+      </div>
+      <div class="bg-gray-500 ml-12 rounded-xl mt-10 h-[477px]">
+        <ScheduleCard />
       </div>
     </section>
 
@@ -108,10 +124,13 @@ import MassCard from "@/components/charts/MassCard.vue";
 import SmallestCard from "@/components/SmallestCard.vue";
 import CheckupForm from "@/components/CheckupForm.vue";
 import MassModal from "@/components/MassModal.vue";
+import ScheduleCard from "@/components/ScheduleCard.vue";
 import { fetchData } from "@/composables/useFetchData";
 import { fetchMassData } from "@/composables/useCheckMass";
 import SizesModal from "@/components/SizesModal.vue";
 import { fetchSizeData } from "@/composables/useBodySize";
+import MonitoringChart from "@/components/charts/MonitoringChart.vue";
+
 const {
   getLastGlicemyValue,
   getLastHeartBeat,
@@ -120,6 +139,9 @@ const {
   lastGlicemyStatus,
   lastHeartRateStatus,
   lastPressureStatus,
+  averageGlicemy,
+  averageHeartBeat,
+  averagePressure,
 } = fetchData();
 
 const {

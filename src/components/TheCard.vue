@@ -8,7 +8,7 @@
           :class="{ 'bg-green-100': props.name === 'Pressão arterial' }"
           class="w-[58px] h-[58px] rounded-lg flex items-center justify-center"
         >
-          <slot></slot>
+          <slot name="icon"></slot>
         </div>
         <h5 class="text-h5">{{ props.name }}</h5>
       </div>
@@ -21,13 +21,12 @@
       <h6 class="text-h6">{{ props.status }}</h6>
     </div>
     <div class="size">
-      <MonitoringChart :last-month="80" />
+      <slot name="chart"></slot>
     </div>
   </section>
 </template>
 
 <script lang="ts" setup>
-import MonitoringChart from "@/components/charts/MonitoringChart.vue";
 const props = defineProps({
   name: String,
   value: Number,

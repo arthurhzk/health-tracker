@@ -86,6 +86,36 @@ export function fetchData() {
     }
   });
 
+  const averageGlicemy = computed(() => {
+    if (monitoring.value) {
+      const sum = monitoring.value.reduce((acc, curr) => {
+        return acc + curr.glicemy;
+      }, 0);
+      return sum / monitoring.value.length;
+    }
+    return null;
+  });
+
+  const averageHeartBeat = computed(() => {
+    if (monitoring.value) {
+      const sum = monitoring.value.reduce((acc, curr) => {
+        return acc + curr.heart_beat;
+      }, 0);
+      return sum / monitoring.value.length;
+    }
+    return null;
+  });
+
+  const averagePressure = computed(() => {
+    const systole = getLastSystole.value;
+    const diastole = getLastDiastole.value;
+
+    if (systole !== null && diastole !== null) {
+      return (systole + diastole) / 2;
+    }
+    return null;
+  });
+
   getData();
 
   return {
@@ -98,5 +128,8 @@ export function fetchData() {
     lastGlicemyStatus,
     lastHeartRateStatus,
     lastPressureStatus,
+    averageGlicemy,
+    averageHeartBeat,
+    averagePressure,
   };
 }
