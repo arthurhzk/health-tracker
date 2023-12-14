@@ -19,7 +19,7 @@
             <BloodSugar />
           </template>
           <template #chart>
-            <MonitoringChart :last-month="averageGlicemy" />
+            <MonitoringChart :last-month="averageGlicemy || 0" />
           </template>
         </TheCard>
         <TheCard
@@ -32,7 +32,7 @@
             <HeartCheck />
           </template>
           <template #chart>
-            <MonitoringChart :last-month="averageHeartBeat" />
+            <MonitoringChart :last-month="averageHeartBeat || 0" />
           </template>
         </TheCard>
         <TheCard
@@ -45,7 +45,7 @@
             <BloodPressure />
           </template>
           <template #chart>
-            <MonitoringChart :last-month="averagePressure" />
+            <MonitoringChart :last-month="averagePressure || 0" />
           </template>
         </TheCard>
       </div>
